@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2024 at 11:22 AM
+-- Generation Time: Feb 13, 2024 at 02:23 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,6 +38,7 @@ CREATE TABLE `branch` (
 --
 
 INSERT INTO `branch` (`id`, `name`, `code`) VALUES
+(0, 'Not Assigned', ''),
 (1, 'BHADRAK COLLEGE', 'BDK001'),
 (2, 'KUANSH', 'BDK002');
 
@@ -53,42 +54,56 @@ CREATE TABLE `cd` (
   `description` varchar(50) NOT NULL,
   `credit` int(11) NOT NULL,
   `debit` int(11) NOT NULL,
-  `balance` int(11) NOT NULL
+  `balance` int(11) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cd`
 --
 
-INSERT INTO `cd` (`id`, `accno`, `description`, `credit`, `debit`, `balance`) VALUES
-(1, 450712, 'transfer', 0, 899, 602),
-(2, 685499, 'transfer', 0, 899, 0),
-(3, 450712, 'transfer', 0, 1000, -398),
-(4, 685499, 'transfer', 0, 1000, 0),
-(5, 685499, 'transfer', 0, 2000, 399),
-(6, 450712, 'transfer', 2000, 0, 0),
-(7, 450712, 'transfer', 0, 602, 1000),
-(8, 685499, 'transfer', 602, 0, 0),
-(9, 450712, 'transfer', 0, 300, 700),
-(10, 685499, 'transfer', 300, 0, 0),
-(11, 450712, 'transfer', 0, 100, 600),
-(12, 685499, 'transfer', 100, 0, 0),
-(13, 450712, 'transfer', 0, 100, 500),
-(14, 685499, 'transfer', 100, 0, 0),
-(15, 685499, 'transfer', 0, 501, 1000),
-(16, 450712, 'transfer', 501, 0, 0),
-(17, 450712, 'transfer', 0, 1, 1000),
-(18, 450712, 'transfer', 1, 0, 1001),
-(19, 450712, 'transfer', 0, 500, 501),
-(20, 685499, 'transfer', 500, 0, 1500);
+INSERT INTO `cd` (`id`, `accno`, `description`, `credit`, `debit`, `balance`, `date`) VALUES
+(1, 450712, 'deposite', 10000, 0, 22501, '2024-02-12 20:33:23'),
+(2, 450712, 'transfer', 0, 10000, 12501, '2024-02-12 20:33:23'),
+(3, 822605, 'transfer', 10000, 0, 10000, '2024-02-12 20:33:23'),
+(5, 450712, 'deposit', 2000, 0, 14501, '2024-02-12 20:33:23'),
+(6, 822605, 'transfer', 0, 2000, 8000, '2024-02-12 20:33:23'),
+(7, 450712, 'transfer', 2000, 0, 16501, '2024-02-12 20:33:23'),
+(8, 822605, 'transfer', 0, 2000, 6000, '2024-02-12 20:33:23'),
+(9, 450712, 'transfer', 2000, 0, 18501, '2024-02-12 20:33:23'),
+(10, 287178, 'deposit', 30000, 0, 30000, '2024-02-12 20:33:23'),
+(11, 287178, 'transfer', 0, 20000, 10000, '2024-02-12 20:33:23'),
+(12, 450712, 'transfer', 20000, 0, 38501, '2024-02-12 20:33:23'),
+(13, 450712, 'transfer', 0, 10000, 28501, '2024-02-12 20:34:14'),
+(14, 287178, 'transfer', 10000, 0, 20000, '2024-02-12 20:34:14'),
+(15, 822605, 'transfer', 0, 3000, 3000, '2024-02-12 22:30:47'),
+(16, 450712, 'transfer', 3000, 0, 31501, '2024-02-12 22:30:47'),
+(17, 822605, 'transfer', 0, 1000, 2000, '2024-02-12 22:37:49'),
+(18, 450712, 'transfer', 1000, 0, 32501, '2024-02-12 22:37:49'),
+(19, 822605, 'transfer', 0, 500, 1500, '2024-02-12 22:38:24'),
+(20, 450712, 'transfer', 500, 0, 33001, '2024-02-12 22:38:24');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `contactus`
 --
--- Error reading structure for table bank.contactus: #1932 - Table &#039;bank.contactus&#039; doesn&#039;t exist in engine
--- Error reading data for table bank.contactus: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#039;FROM `bank`.`contactus`&#039; at line 1
+
+CREATE TABLE `contactus` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `mobno` bigint(20) NOT NULL,
+  `subject` varchar(200) NOT NULL,
+  `message` varchar(2000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contactus`
+--
+
+INSERT INTO `contactus` (`id`, `name`, `email`, `mobno`, `subject`, `message`) VALUES
+(6, 'sai', 'sai@gmail.com', 7750854699, 'inactive account', ' hi sir my account flaged as inactive please remove flag . so i can access my dashboard');
 
 -- --------------------------------------------------------
 
@@ -99,16 +114,10 @@ INSERT INTO `cd` (`id`, `accno`, `description`, `credit`, `debit`, `balance`) VA
 CREATE TABLE `feedback` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
+  `branchId` int(11) NOT NULL,
   `subject` varchar(200) NOT NULL,
   `feedback` varchar(2000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `feedback`
---
-
-INSERT INTO `feedback` (`id`, `username`, `subject`, `feedback`) VALUES
-(3, 'balgopal', 'banking need', 'gasdwerdad');
 
 -- --------------------------------------------------------
 
@@ -130,15 +139,10 @@ CREATE TABLE `loanapp` (
 --
 
 INSERT INTO `loanapp` (`id`, `accno`, `name`, `amount`, `reason`, `status`) VALUES
-(3, 450712, 'balgopal', 2000, 'study', 'Senctioned'),
-(4, 685499, 'gayatri', 5000, 'gift', 'Senctioned'),
-(5, 685499, 'gayatri', 5000, 'study', 'Senctioned'),
-(6, 450712, 'balgopal', 5000, 'study', 'Senctioned'),
-(7, 450712, 'balgopal', 5000, 'study', 'Senctioned'),
-(8, 450712, 'balgopal', 5000, 'gift', 'Senctioned'),
-(9, 450712, 'balgopal', 2000, 'gift', 'Senctioned'),
-(10, 450712, 'balgopal', 500, '', 'Senctioned'),
-(11, 450712, 'balgopal', 1000, '', 'Senctioned');
+(23, 450712, 'balgopal', 2000, '', 'Senctioned'),
+(24, 450712, 'balgopal', 10000, '', 'Senctioned'),
+(25, 287178, 'balgopalg', 3000, '', 'Senctioned'),
+(26, 287178, 'balgopalg', 30000, '', 'Senctioned');
 
 -- --------------------------------------------------------
 
@@ -159,12 +163,51 @@ CREATE TABLE `notice` (
 --
 
 INSERT INTO `notice` (`id`, `uname`, `accno`, `action`, `notice`) VALUES
-(7, 'balgopal', 450712, 'debit', 'Your account is debited with 1 rupees'),
-(8, 'balgopal', 450712, 'credit', 'Your account is credited with 1 rupees'),
-(9, 'balgopal', 450712, 'debit', 'Your account is debited with 500 rupees'),
-(10, 'gayatri', 685499, 'credit', 'Your account is credited with 500 rupees'),
-(11, 'balgopal', 450712, 'loanSenction', 'your 2000 rupees loan is senctioned'),
-(12, 'balgopal', 450712, 'loanSenction', 'your 1000 rupees loan is senctioned');
+(1, 'balgopal', 450712, 'deposite', '10000 is deposited in your account new balance is : 22501'),
+(2, 'balgopal', 450712, 'debit', 'Your account is debited with 10000 rupees'),
+(3, 'gayatri', 822605, 'credit', 'Your account is credited with 10000 rupees'),
+(4, 'gayatri', 822605, 'loanSenction', 'your 20000 rupees loan is senctioned'),
+(5, 'balgopal', 450712, 'loanSenction', 'your 10000 rupees loan is senctioned'),
+(6, 'gayatri', 822605, 'loanSenction', 'your 10000 rupees loan is rejected by manager'),
+(7, 'balgopal', 450712, 'deposit', '2000 is deposited in your account new balance is : 14501'),
+(8, '', 822605, '', 'you are not eligible'),
+(9, 'gayatri', 822605, 'debit', 'Your account is debited with 2000 rupees'),
+(10, 'balgopal', 450712, 'credit', 'Your account is credited with 2000 rupees'),
+(11, 'balgopal', 450712, 'loanSenction', 'your 3000 rupees loan is senctioned'),
+(12, 'balgopal', 450712, 'loanSenction', 'your 2000 rupees loan is rejected by manager'),
+(13, 'balgopal', 450712, 'loanSenction', 'your 2222 rupees loan is rejected by manager'),
+(14, 'balgopal', 450712, 'loanSenction', 'your 2222 rupees loan is rejected by manager'),
+(15, 'balgopal', 450712, 'loanSenction', 'your 2222 rupees loan is rejected by manager'),
+(16, 'balgopal', 450712, 'loanSenction', 'your 2222 rupees loan is rejected by manager'),
+(17, 'balgopal', 450712, 'loanSenction', 'your 2222 rupees loan is rejected by manager'),
+(18, 'balgopal', 450712, 'loanSenction', 'your 2222 rupees loan is rejected by manager'),
+(19, 'balgopal', 450712, 'loanSenction', 'your 2222 rupees loan is rejected by manager'),
+(20, 'balgopal', 450712, 'loanSenction', 'your 2222 rupees loan is rejected by manager'),
+(21, 'balgopal', 450712, 'loanSenction', 'your 2222 rupees loan is rejected by manager'),
+(22, 'balgopal', 450712, 'loanSenction', 'your 0 rupees loan is rejected by manager'),
+(23, 'balgopal', 450712, 'loanSenction', 'your 0 rupees loan is rejected by manager'),
+(24, 'balgopal', 450712, 'loanSenction', 'your 0 rupees loan is rejected by manager'),
+(25, 'balgopal', 450712, 'loanSenction', 'your 2333 rupees loan is rejected by manager'),
+(26, 'balgopal', 450712, 'loanSenction', 'your 2000 rupees loan is senctioned'),
+(27, 'balgopal', 450712, 'loanSenction', 'your 2222 rupees loan is rejected by manager'),
+(28, 'balgopal', 450712, 'loanSenction', 'your 2000 rupees loan is senctioned'),
+(29, 'balgopal', 450712, 'loanSenction', 'your 2000 rupees loan is senctioned'),
+(30, 'balgopal', 450712, 'loanSenction', 'your 10000 rupees loan is senctioned'),
+(31, 'gayatri', 822605, 'debit', 'Your account is debited with 2000 rupees'),
+(32, 'balgopal', 450712, 'credit', 'Your account is credited with 2000 rupees'),
+(33, 'balgopalg', 287178, 'loanSenction', 'your 3000 rupees loan is senctioned'),
+(34, 'balgopalg', 287178, 'deposit', '30000 is deposited in your account new balance is : 30000'),
+(35, 'balgopalg', 287178, 'debit', 'Your account is debited with 20000 rupees'),
+(36, 'balgopal', 450712, 'credit', 'Your account is credited with 20000 rupees'),
+(37, 'balgopalg', 287178, 'loanSenction', 'your 30000 rupees loan is senctioned'),
+(38, 'balgopal', 450712, 'debit', 'Your account is debited with 10000 rupees'),
+(39, 'balgopalg', 287178, 'credit', 'Your account is credited with 10000 rupees'),
+(40, 'gayatri', 822605, 'debit', 'Your account is debited with 3000 rupees'),
+(41, 'balgopal', 450712, 'credit', 'Your account is credited with 3000 rupees'),
+(42, 'gayatri', 822605, 'debit', 'Your account is debited with 1000 rupees'),
+(43, 'balgopalg', 450712, 'credit', 'Your account is credited with 1000 rupees'),
+(44, 'gayatri', 822605, 'debit', 'Your account is debited with 500 rupees'),
+(45, 'balgopal', 450712, 'credit', 'Your account is credited with 500 rupees');
 
 -- --------------------------------------------------------
 
@@ -177,17 +220,19 @@ CREATE TABLE `staffs` (
   `sname` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `branch` varchar(50) NOT NULL,
-  `role` varchar(50) NOT NULL
+  `role` varchar(50) NOT NULL,
+  `balance` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `staffs`
 --
 
-INSERT INTO `staffs` (`id`, `sname`, `password`, `branch`, `role`) VALUES
-(1, 'balgopalg', 'bal', '1', 'manager'),
-(3, 'balaji', 'bal', '2', 'cashier'),
-(5, 'kanha', 'kanha', '2', 'manager');
+INSERT INTO `staffs` (`id`, `sname`, `password`, `branch`, `role`, `balance`) VALUES
+(1, 'balgopalg', 'bal', '1', 'manager', 0),
+(12, 'gayatri', 'gayatri', '2', 'manager', 15000),
+(13, 'bibek', 'bibek', '2', 'employee', 6000),
+(16, 'kanha', 'kanha', '1', 'employee', 11000);
 
 -- --------------------------------------------------------
 
@@ -210,17 +255,14 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`id`, `sender`, `sendacc`, `amount`, `receiver`, `recvacc`, `date`) VALUES
-(2, 'gayatri', 685499, 501, 'balgopal', 450712, '2024-02-07'),
-(3, 'balgopal', 450712, 899, 'gayatri', 685499, '2024-02-07'),
-(4, 'balgopal', 450712, 1000, 'gayatri', 685499, '2024-02-07'),
-(5, 'gayatri', 685499, 2000, 'balgopal', 450712, '2024-02-07'),
-(6, 'balgopal', 450712, 602, 'gayatri', 685499, '2024-02-07'),
-(7, 'balgopal', 450712, 300, 'gayatri', 685499, '2024-02-07'),
-(8, 'balgopal', 450712, 100, 'gayatri', 685499, '2024-02-07'),
-(9, 'balgopal', 450712, 100, 'gayatri', 685499, '2024-02-07'),
-(10, 'gayatri', 685499, 501, 'bal', 450712, '2024-02-08'),
-(11, 'balgopal', 450712, 1, 'balgopal', 450712, '2024-02-08'),
-(12, 'balgopal', 450712, 500, 'gayatri', 685499, '2024-02-08');
+(1, 'balgopal', 450712, 10000, 'gayatri', 822605, '2024-02-10'),
+(2, 'gayatri', 822605, 2000, 'balgopal', 450712, '2024-02-11'),
+(3, 'gayatri', 822605, 2000, 'balgopal', 450712, '2024-02-12'),
+(4, 'balgopalg', 287178, 20000, 'balgopal', 450712, '2024-02-12'),
+(5, 'balgopal', 450712, 10000, 'balgopalg', 287178, '2024-02-12'),
+(6, 'gayatri', 822605, 3000, 'balgopal', 450712, '2024-02-12'),
+(7, 'gayatri', 822605, 1000, 'balgopalg', 450712, '2024-02-12'),
+(8, 'gayatri', 822605, 500, 'balgopal', 450712, '2024-02-12');
 
 -- --------------------------------------------------------
 
@@ -245,9 +287,9 @@ CREATE TABLE `useraccounts` (
   `city` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL,
   `source` varchar(50) NOT NULL,
-  `branch` varchar(50) NOT NULL,
+  `branch` bigint(50) NOT NULL DEFAULT 0,
   `date` date NOT NULL,
-  `status` varchar(20) NOT NULL DEFAULT 'INACTIVE'
+  `status` varchar(20) NOT NULL DEFAULT 'NEW'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -255,9 +297,11 @@ CREATE TABLE `useraccounts` (
 --
 
 INSERT INTO `useraccounts` (`uname`, `password`, `aadhaarno`, `panno`, `name`, `email`, `mobno`, `crn`, `accountno`, `balance`, `loanamt`, `loandue`, `acctype`, `city`, `address`, `source`, `branch`, `date`, `status`) VALUES
-('balgopal', 'bal', 780049458511, 'DRCPG3431D', 'G. Bal Gopal', 'iambalgopal@gmail.com', 8260429141, 46173, 450712, 501, 3000, 2500, 'savings', 'Bhadrak', 'Kuansh, Bhadrak', 'student', '2', '2024-02-07', 'ACTIVE'),
-('gayatri', 'gayatri', 780049458511, 'ABCD3235D', 'Gayatri Jena', 'gayatri@gmail.com', 8260429151, 10895, 685499, 1500, 5000, 5000, 'savings', 'bhadrak', 'bhadrak', 'student', '2', '2024-02-07', 'ACTIVE'),
-('sai', 'sai', 702385887283, '2dkaiu283', 'sai', 'sai@gmail.com', 8260429141, 69696, 630746, 2, 0, 0, 'current', 'bhadrak', 'bhadrak', 'student', '1', '2024-02-07', 'ACTIVE');
+('balgopal', 'bal', 780049458511, 'DRCPG3431D', 'G. Bal Gopal', 'iambalgopal@gmail.com', 8260429141, 46173, 450712, 33001, 0, 0, 'savings', 'Bhadrak', 'Kuansh, Bhadrak', 'student', 2, '2024-02-07', 'ACTIVE'),
+('balgopalg', 'balgopal', 780049458511, 'DRCPG3431D', 'G. Bal Gopal', 'guruvellibalgopal@gmail.com', 8260429141, 98251, 287178, 20000, 0, 0, 'savings', 'Bhadrak', 'Bhadrak', 'Student', 1, '2024-02-12', 'ACTIVE'),
+('gayatri', 'gaya', 699149804311, 'AQDJ7348AG', 'gayatri jena', 'gayatri@gmail.com', 7008857619, 46384, 822605, 1500, 0, 0, 'savings', 'bhadrak', 'near zilla high school , bankasahi , bhadrak', 'student', 1, '2024-02-10', 'ACTIVE'),
+('sai', 'sai', 728018457012, 'PDHDN374OA', 'Guruvelli Shanmukh Rao', 'sai@gmail.com', 7750854699, 54273, 352949, 0, 0, 0, 'savings', 'Bhadrak', 'Kuansh, Bhadrak ', 'Student', 2, '2024-02-10', 'ACTIVE'),
+('sai1', 'sai1', 780049458511, 'DKHSI582D', 'shanmukh rao', 'sa@gmail.com', 7750854699, 45372, 982438, 0, 0, 0, 'savings', 'asdigiah', 'AP', 'Student', 1, '2024-02-12', 'ACTIVE');
 
 --
 -- Indexes for dumped tables
@@ -273,6 +317,12 @@ ALTER TABLE `branch`
 -- Indexes for table `cd`
 --
 ALTER TABLE `cd`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contactus`
+--
+ALTER TABLE `contactus`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -322,34 +372,40 @@ ALTER TABLE `cd`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT for table `contactus`
+--
+ALTER TABLE `contactus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `loanapp`
 --
 ALTER TABLE `loanapp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `notice`
 --
 ALTER TABLE `notice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `staffs`
 --
 ALTER TABLE `staffs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
